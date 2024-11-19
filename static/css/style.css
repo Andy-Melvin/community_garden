@@ -1,0 +1,283 @@
+/* General Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar Styling */
+.navbar {
+    font-size: 18px;
+    background-color: #28a745 !important; /* Matches the green theme */
+}
+
+.navbar .nav-link {
+    color: white !important;
+}
+
+.navbar .nav-link:hover {
+    color: #c3e6cb !important; /* Lighter green on hover */
+}
+
+/* Footer Styling */
+footer {
+    background-color: #28a745;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Hero Section */
+.jumbotron {
+    background-blend-mode: darken;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    padding: 60px 20px;
+    border-radius: 10px;
+}
+
+.jumbotron h1 {
+    font-size: 2.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.jumbotron .btn {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+}
+
+/* Card Styling */
+.card {
+    border-radius: 10px;
+}
+
+.card-header {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Form Styling */
+.form-control {
+    border-radius: 5px;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+    background-color: #f8d7da;
+}
+
+.form-control.is-valid {
+    border-color: #28a745;
+    background-color: #d4edda;
+}
+
+.invalid-feedback {
+    font-size: 0.9rem;
+    color: #dc3545;
+}
+
+.valid-feedback {
+    font-size: 0.9rem;
+    color: #28a745;
+}
+
+/* Buttons */
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #28a745;
+    color: white;
+    text-transform: uppercase;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.table-striped tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Image Styling */
+.img-fluid {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Alert Box Styling */
+.alert {
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+/* Hero Section Specific Styling */
+.hero {
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .jumbotron h1 {
+        font-size: 2rem;
+    }
+
+    .jumbotron .btn {
+        font-size: 1rem;
+    }
+
+    footer {
+        font-size: 14px;
+    }
+}
+
+/* Login Card Styling */
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Validation Styling */
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.is-valid {
+    border-color: #28a745 !important;
+}
+
+.invalid-feedback {
+    font-size: 0.9rem;
+    color: #dc3545;
+}
+
+/* Hero Section for Guest Homepage */
+.jumbotron {
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: darken;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 60px 20px;
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black;
+}
+
+/* Feature Section Images */
+.img-fluid {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
+.btn-outline-success {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-outline-success:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+
+
+/* Badge Colors */
+.bg-success {
+    background-color: #28a745 !important;
+}
+
+.bg-warning {
+    background-color: #ffc107 !important;
+}
+
+.bg-danger {
+    background-color: #dc3545 !important;
+}
+
+/* Table Rows */
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Modal Customizations */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+}
+
+/* Table Rows */
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Modal Customizations */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+}

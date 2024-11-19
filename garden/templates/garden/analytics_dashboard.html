@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Analytics Dashboard</h2>
+    <a href="{% url 'export_analytics_csv' %}" class="btn btn-primary mb-3">Export Analytics</a>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>User</th>
+                <th>Action</th>
+                <th>Timestamp</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in analytics %}
+            <tr>
+                <td>{{ entry.user.username }}</td>
+                <td>{{ entry.get_action_display }}</td>
+                <td>{{ entry.timestamp }}</td>
+                <td>{{ entry.details }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No analytics data available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

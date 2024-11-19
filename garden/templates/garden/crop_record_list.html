@@ -1,0 +1,112 @@
+<!-- crop_record_list.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-success">Crop Records</h1>
+        <form method="get" class="d-flex">
+            <input type="text" name="q" class="form-control me-2" placeholder="Search crops..." value="{{ request.GET.q }}">
+            <button type="submit" class="btn btn-success">Search</button>
+        </form>
+        <!-- Button to Open Add Crop Record Modal -->
+        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addCropModal">
+            Add Crop Record
+        </button>
+    </div>
+
+    <!-- Crop Records Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="table-success text-center">
+                <tr>
+                    <th>Plot</th>
+                    <th>Crop Type</th>
+                    <th>Planting Date</th>
+                    <th>Expected Harvest Date</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td class="text-center">{{ record.plot.plot_number }}</td>
+                    <td class="text-center">{{ record.crop_type }}</td>
+                    <td class="text-center">{{ record.planting_date }}</td>
+                    <td class="text-center">{{ record.expected_harvest_date }}</td>
+                    <td>{{ record.notes|default:"N/A" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted">No crop records found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add Crop Record Modal -->
+
+<div class="modal fade" id="addCropModal" tabindex="-1" aria-labelledby="addCropModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCropModalLabel">Add Crop Record</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="{% url 'add_crop_record' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            Please correct the errors below.
+                        </div>
+                    {% endif %}
+                    <div class="mb-3">
+                        <label for="plot" class="form-label">Plot</label>
+                        <select name="plot" id="plot" class="form-select {% if form.plot.errors %}is-invalid{% endif %}">
+                            {% for plot in form.plot.field.queryset %}
+                            <option value="{{ plot.id }}" {% if plot.id|stringformat:"s" == form.plot.value|stringformat:"s" %}selected{% endif %}>
+                                {{ plot.plot_number }} - {{ plot.location }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        {% for error in form.plot.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="crop_type" class="form-label">Crop Type</label>
+                        <input type="text" name="crop_type" id="crop_type" class="form-control {% if form.crop_type.errors %}is-invalid{% endif %}" value="{{ form.crop_type.value }}">
+                        {% for error in form.crop_type.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="planting_date" class="form-label">Planting Date</label>
+                        <input type="date" name="planting_date" id="planting_date" class="form-control {% if form.planting_date.errors %}is-invalid{% endif %}" value="{{ form.planting_date.value }}">
+                        {% for error in form.planting_date.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="expected_harvest_date" class="form-label">Expected Harvest Date</label>
+                        <input type="date" name="expected_harvest_date" id="expected_harvest_date" class="form-control {% if form.expected_harvest_date.errors %}is-invalid{% endif %}" value="{{ form.expected_harvest_date.value }}">
+                        {% for error in form.expected_harvest_date.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea name="notes" id="notes" class="form-control" rows="3">{{ form.notes.value }}</textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Add Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!-- home_user.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4 fw-bold text-uppercase">Hello, {{ user.username }}!</h1>
+        <p class="lead fs-4 mt-3">Welcome back to the Community Garden.</p>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-4 text-center">
+            <img src="{% static 'images/plots.jpg' %}" alt="Plots" class="img-fluid rounded shadow-sm" style="width: 100%; height: 200px; object-fit: cover;">
+            <h3 class="mt-3">Manage Your Plots</h3>
+            <p>Apply for plots and track your gardening progress.</p>
+            <a href="{% url 'plot_list' %}" class="btn btn-outline-success">View Plots</a>
+        </div>
+        <div class="col-md-4 text-center">
+            <img src="{% static 'images/events.jpg' %}" alt="Events" class="img-fluid rounded shadow-sm" style="width: 100%; height: 200px; object-fit: cover;">
+            <h3 class="mt-3">Volunteer for Events</h3>
+            <p>Check out upcoming events and lend a hand.</p>
+            <a href="{% url 'event_list' %}" class="btn btn-outline-success">View Events</a>
+        </div>
+        <div class="col-md-4 text-center">
+            <img src="{% static 'images/crops.jpg' %}" alt="Crops" class="img-fluid rounded shadow-sm" style="width: 100%; height: 200px; object-fit: cover;">
+            <h3 class="mt-3">Track Your Crops</h3>
+            <p>Record your crops and monitor their progress.</p>
+            <a href="{% url 'crop_record_list' %}" class="btn btn-outline-success">View Crops</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+<!-- plot_list.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-success">Manage Garden Plots</h1>
+        <form method="get" class="d-flex">
+            <input type="text" name="q" class="form-control me-2" placeholder="Search plots..." value="{{ request.GET.q }}">
+            <button type="submit" class="btn btn-success">Search</button>
+        </form>
+    </div>
+
+    <!-- Plots Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped align-middle">
+            <thead class="table-success text-center">
+                <tr>
+                    <th>Plot Number</th>
+                    <th>Size (m<sup>2</sup>)</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for plot in plots %}
+                <tr>
+                    <td class="text-center">{{ plot.plot_number }}</td>
+                    <td class="text-center">{{ plot.size }}</td>
+                    <td class="text-center">{{ plot.location }}</td>
+                    <td class="text-center">
+                        <span class="badge {% if plot.status == 'available' %}bg-success{% elif plot.status == 'occupied' %}bg-danger{% else %}bg-warning text-dark{% endif %}">
+                            {{ plot.get_status_display }}
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        {% if plot.status == 'available' %}
+                        <!-- Button to Open Modal -->
+                        <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#applyModal{{ plot.id }}">
+                            Apply
+                        </button>
+
+                        <!-- Apply Modal -->
+                        <div class="modal fade" id="applyModal{{ plot.id }}" tabindex="-1" aria-labelledby="applyModalLabel{{ plot.id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="applyModalLabel{{ plot.id }}">Apply for Plot {{ plot.plot_number }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form method="post" action="{% url 'apply_for_plot' plot.id %}">
+                                        {% csrf_token %}
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to apply for Plot <strong>{{ plot.plot_number }}</strong> located at <strong>{{ plot.location }}</strong>?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-success">Confirm</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% elif plot.status == 'pending' %}
+                        <span class="text-warning">Pending Approval</span>
+                        {% else %}
+                        <span class="text-muted">N/A</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted">No plots found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- View Chart Button -->
+    <div class="text-center mt-4">
+        <a href="{% url 'plot_chart' %}" class="btn btn-outline-success">View Plot Chart</a>
+    </div>
+</div>
+{% endblock %}

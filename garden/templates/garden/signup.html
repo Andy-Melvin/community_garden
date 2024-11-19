@@ -1,0 +1,91 @@
+<!-- signup.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header text-center bg-success text-white">
+                    <h3>Create an Account</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Display Validation Rules -->
+                        <div class="alert alert-info">
+                            <ul>
+                                <li>Username must be at least 4 characters long and contain only letters, numbers, and underscores.</li>
+                                <li>Password must be at least 8 characters long and match the confirmation.</li>
+                                <li>Phone number must be in international format (e.g., +250123456789).</li>
+                            </ul>
+                        </div>
+
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">Username</label>
+                            <input type="text" 
+                                   class="form-control {% if form.username.errors %}is-invalid{% elif form.username.value %}is-valid{% endif %}" 
+                                   id="id_username" 
+                                   name="username" 
+                                   value="{{ form.username.value }}" 
+                                   required>
+                            {% for error in form.username.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="id_password1" class="form-label">Password</label>
+                            <input type="password" 
+                                   class="form-control {% if form.password1.errors %}is-invalid{% elif form.password1.value %}is-valid{% endif %}" 
+                                   id="id_password1" 
+                                   name="password1" 
+                                   required>
+                            {% for error in form.password1.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="mb-3">
+                            <label for="id_password2" class="form-label">Confirm Password</label>
+                            <input type="password" 
+                                   class="form-control {% if form.password2.errors %}is-invalid{% elif form.password2.value %}is-valid{% endif %}" 
+                                   id="id_password2" 
+                                   name="password2" 
+                                   required>
+                            {% for error in form.password2.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="mb-3">
+                            <label for="id_phone_number" class="form-label">Phone Number</label>
+                            <input type="tel" 
+                                   class="form-control {% if form.phone_number.errors %}is-invalid{% elif form.phone_number.value %}is-valid{% endif %}" 
+                                   id="id_phone_number" 
+                                   name="phone_number" 
+                                   value="{{ form.phone_number.value }}" 
+                                   required>
+                            {% for error in form.phone_number.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">Sign Up</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

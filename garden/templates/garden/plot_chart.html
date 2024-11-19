@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center text-success">Plot Size Chart</h2>
+    <canvas id="plotChart" width="400" height="200"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('plotChart').getContext('2d');
+    const plotNumbers = {{ plot_numbers|safe }};
+    const plotSizes = {{ plot_sizes|safe }};
+
+    new Chart(ctx, {
+        type: 'bar', // Change to 'line', 'pie', etc., if needed
+        data: {
+            labels: plotNumbers,
+            datasets: [{
+                label: 'Plot Size',
+                data: plotSizes,
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
